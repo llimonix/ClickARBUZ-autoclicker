@@ -13,11 +13,11 @@ class ArbuzApp():
         self.base_url = 'https://arbuz.betty.games/api'
         self.headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 YaBrowser/79.0.3945.117 Safari/537.36',
-            'x-telegram-init-data': '',
+            'x-telegram-init-data': 'PASTE_SESSION',
         }
         self.proxy = {
-            'https': 'http://',
-            'http': 'http://'
+            'https': 'http://user:pass@ip:port',
+            'http': 'http://user:pass@ip:port''
         }
 
     def click(self):
