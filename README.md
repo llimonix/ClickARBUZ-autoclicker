@@ -51,8 +51,8 @@ PROXY=user:pass@ip:port
 PROXY_EXISTS=False
 ```
 
-TELEGRAM_CHAT_ID: Ваш telegram ID можно найти в боте https://t.me/userinfobot
-TELEGRAM_BOT_TOKEN: Токен бота. Бот создается в боте https://t.me/BotFather. После создания появится токен. Вы должны начать разговор со своим ботом, чтобы получать уведомления о работе кликера
+TELEGRAM_CHAT_ID: Ваш telegram ID можно найти в боте https://t.me/userinfobot <br>
+TELEGRAM_BOT_TOKEN: Токен бота. Бот создается в боте https://t.me/BotFather. После создания появится токен. Вы должны начать разговор со своим ботом, чтобы получать уведомления о работе кликера <br>
 TELEGRAM_INIT_DATA: Запустите telegram web- https://web.telegram.org. Нажмите ctrl + shift + i, откройте бота и нажмите "Играть". В разделе "Сеть" появится запрос на веб-сайт `
 arbuz.betty.games/api/users/me`. Оттуда вам нужно скопировать свою сессию. <br>
 ![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/46133eb2-c0ad-4def-9741-6a1e0351771a)
