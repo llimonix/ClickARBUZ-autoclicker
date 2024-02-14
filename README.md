@@ -1,25 +1,83 @@
-# arbuzapp-autoclick
-Autoclicker for ArbuzApp coins
+<br/>
+<p align="center">
+  <a href="https://github.com/llimonix/ClickARBUZ-autoclicker">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-The setup takes place in the main file arbuzapp.py 
+  <h3 align="center">ClickArbuz Autoclicker</h3>
 
-TELEGRAM_CHAT_ID - Your telegram ID can be found in the bot t.me/userinfobot <br>
-TELEGRAM_BOT_TOKEN - The bot token. The bot is created in the bot t.me/BotFather. After creation, a token will appear. You must start a conversation with your bot in order to receive notifications of the clicker's work <br>
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/8392cdb9-2712-4e57-83f4-f93281c5d9f9) <br>
+</p>
 
-PROXY <br>
-Proxy in the format user:pass@ip:port . Only https proxies are supported. You can just write self.proxy = None to avoid using them <br>
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/aba2a7a3-a527-4c0b-a76d-384067cbbd1b) <br>
+![Downloads](https://img.shields.io/github/downloads/llimonix/ClickARBUZ-autoclicker/total) ![Forks](https://img.shields.io/github/forks/llimonix/ClickARBUZ-autoclicker?style=social) ![Stargazers](https://img.shields.io/github/stars/llimonix/ClickARBUZ-autoclicker?style=social) ![Issues](https://img.shields.io/github/issues/llimonix/ClickARBUZ-autoclicker)
 
-x-telegram-init-data <br>
-Launch telegram web: https://web.telegram.org/ <br>
-Press ctrl + shift + i, open the bot and click play. In the network section, a request for the watermelon bot website will appear. From there, you need to copy your session. <br>
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/611ddaf6-0559-4121-84cc-878bc3672ff4) <br>
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/46133eb2-c0ad-4def-9741-6a1e0351771a) <br>
+## Содержание
 
-Copy the value to X-Telegram-Init-Data and paste it between the quotes <br>
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/fcd3eebb-a280-40b9-a613-bf1b122ad3bc) <br>
+* [О проекте](#о-проекте)
+* [Подготовка к работе](#подготовка-к-работе)
+  * [Установка](#установка)
+* [Дорожная карта](#дорожная-карта)
+* [Создание запроса на извлечение](#создание-запроса-на-извлечение)
+* [Отказ от ответственности](#отказ-от-ответственности)
 
-PROCESS
-![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/1cba1d29-bd02-42d1-8db5-a917af9ce483)
+## О проекте
+
+![Screen Shot](images/screenshot.png)
+
+ClickARBUZ AutoClicker - это автокликер для телеграм-бота КликниАрбуз. Скрипт настроен так, что количество кликов и время между кликами подобрано с самым наилучшим вариантом. После запуска он сам понимает сколько времени нужно ждать, чтобы вся энергия восстановилась и что можно продолжать кликать. Так же имеется отстук в телеграм, когда закончилась энергия.
+
+## Подготовка к работе
+
+Перед началом работы вы должны установить python версии не ниже 3.11 с официального веб-сайта www.python.org . Не забудьте установить флажок Add to PATH во время установки.
+
+### Установка
+
+1. Скачайте [архив](https://github.com/llimonix/ClickARBUZ-autoclicker/releases/latest) и распакуйте
+2. Откройте командную строку в папке проекта или перейдите по нужному пути с помощью команды
+
+```
+cd path/ClickARBUZ-autoclicker
+```
+3. Установите необходимые модули
+
+```python
+pip install -r requirements.txt
+```
+
+4. Введите ваши данные и прокси (необязательно) в файле `config.env`
+
+```
+TELEGRAM_CHAT_ID=...
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_INIT_DATA=...
+PROXY=user:pass@ip:port
+PROXY_EXISTS=False
+```
+
+TELEGRAM_CHAT_ID: Ваш telegram ID можно найти в боте https://t.me/userinfobot
+TELEGRAM_BOT_TOKEN: Токен бота. Бот создается в боте https://t.me/BotFather. После создания появится токен. Вы должны начать разговор со своим ботом, чтобы получать уведомления о работе кликера
+TELEGRAM_INIT_DATA: Запустите telegram web- https://web.telegram.org. Нажмите ctrl + shift + i, откройте бота и нажмите "Играть". В разделе "Сеть" появится запрос на веб-сайт `
+arbuz.betty.games/api/users/me`. Оттуда вам нужно скопировать свою сессию. <br>
+![image](https://github.com/llimonix/arbuzapp-autoclick/assets/58168234/46133eb2-c0ad-4def-9741-6a1e0351771a)
+
+5. Запустите основной файл проекта
+
+```python
+python arbuzapp.py
+```
+
+## Дорожная карта
+
+Список предлагаемых функций (и известных проблем) смотрите в разделе ["Открытые проблемы"](https://github.com/llimonix/ClickARBUZ-autoclicker/issues).
+
+## Создание запроса на извлечение
+
+1. Сделайте форк проекта
+2. Создайте свою ветку функций (`git checkout -b feature/ArbuzFeature`)
+3. Зафиксируйте свои изменения (`git commit -m 'Add some ArbuzFeature")
+4. Перейдите в ветку (`git push origin feature/ArbuzFeature`)
+5. Откройте запрос на извлечение
+
+## Отказ от ответственности
+
+Использование ClickARBUZ AutoClicker осуществляется на ваш собственный риск. Я не несу ответственности за возможные блокировки или иные санкции со стороны разработчиков КликниАрбуз.
 
