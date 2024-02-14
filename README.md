@@ -1,11 +1,9 @@
 <br/>
 <p align="center">
   <a href="https://github.com/llimonix/ClickARBUZ-autoclicker">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="128" height="128">
   </a>
-
   <h3 align="center">ClickArbuz Autoclicker</h3>
-
 </p>
 
 ![Downloads](https://img.shields.io/github/downloads/llimonix/ClickARBUZ-autoclicker/total) ![Forks](https://img.shields.io/github/forks/llimonix/ClickARBUZ-autoclicker?style=social) ![Stargazers](https://img.shields.io/github/stars/llimonix/ClickARBUZ-autoclicker?style=social) ![Issues](https://img.shields.io/github/issues/llimonix/ClickARBUZ-autoclicker)
