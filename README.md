@@ -71,7 +71,7 @@ python arbuzapp.py
 
 1. Сделайте форк проекта
 2. Создайте свою ветку функций (`git checkout -b feature/ArbuzFeature`)
-3. Зафиксируйте свои изменения (`git commit -m 'Add some ArbuzFeature")
+3. Зафиксируйте свои изменения (`git commit -m 'Add some ArbuzFeature'`)
 4. Перейдите в ветку (`git push origin feature/ArbuzFeature`)
 5. Откройте запрос на извлечение
 
