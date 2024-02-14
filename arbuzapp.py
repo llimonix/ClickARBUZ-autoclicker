@@ -1,74 +1,91 @@
-import time, sys, random, requests
+import time
+import sys
+import random
+import requests
 from loguru import logger
+
+from env import load_config
 
 logger.remove()
 logger.add(sys.stdout, colorize=True,
            format="<bold>[ArbuzApp]</bold> <white>{time:YYYY-MM-DD HH:mm:ss.SSS}</white> <red>|</red> <level>{level: <8}</level> <red>|</red> <level>{message}</level>")
 
-TELEGRAM_CHAT_ID = ''
-TELEGRAM_BOT_TOKEN = ''
-
-class ArbuzApp():
-    def __init__(self):
-        self.base_url = 'https://arbuz.betty.games/api'
-        self.headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 YaBrowser/79.0.3945.117 Safari/537.36',
-            'x-telegram-init-data': 'PASTE_SESSION',
+class ArbuzApp:
+    def __init__(self) -> None:
+        self.config = load_config('config.env')
+        self.base_url: str = 'https://arbuz.betty.games/api'
+        self.headers: dict = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/79.0.3945.117 YaBrowser/79.0.3945.117 Safari/537.36',
+            'x-telegram-init-data': self.config.TELEGRAM_INIT_DATA,
         }
-        self.proxy = {
-            'https': 'http://user:pass@ip:port',
-            'http': 'http://user:pass@ip:port''
-        }
+        self.proxy: dict = self.get_proxy()
 
-    def click(self):
-        response = requests.post(f'{self.base_url}/click', headers=self.headers,
-                                 json={'count': random.randint(25, 35)}, proxies=self.proxy)
+    def get_proxy(self) -> dict:
+        if self.config.PROXY_EXISTS:
+            return {'https': f'http://{self.config.PROXY}', 'http': f'http://{self.config.PROXY}'}
+
+        return {'https': '', 'http': ''}
+
+    def click(self) -> tuple[str, int, float]:
+        response = requests.post(
+            f'{self.base_url}/click',
+            headers=self.headers,
+            json={'count': random.randint(25, 35)},
+            proxies=self.proxy,
+            timeout=10
+        )
         json_data = response.json()
 
         return json_data.get("code"), json_data.get("count"), json_data.get("currentEnergy")
 
-    def me_info(self):
-        response = requests.get(f'{self.base_url}/users/me', headers=self.headers, proxies=self.proxy)
+    def me_info(self) -> tuple[int, float, int]:
+        response = requests.get(f'{self.base_url}/users/me', headers=self.headers, proxies=self.proxy, timeout=10)
         json_data = response.json()
 
         return json_data.get("clicks"), json_data.get("energyBoostSum"), json_data.get("energyLimit")
 
-def send_telegram_message(message):
-    try:
-        response = requests.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", params={
-            'chat_id': TELEGRAM_CHAT_ID,
-            'text': message,
-        })
-        response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Не удалось отправить сообщение в Telegram: {e}")
+app = ArbuzApp()
 
-def start():
-    coins, energyBoost, energyLimit = app.me_info()
-    timeSleep = int(energyLimit / energyBoost)
+def send_telegram_message(message: str) -> None:
+    try:
+        response = requests.get(f"https://api.telegram.org/bot{app.config.TELEGRAM_BOT_TOKEN}/sendMessage", params={
+            'chat_id': app.config.TELEGRAM_CHAT_ID,
+            'text': message,
+        }, timeout=10)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        logger.error("Не удалось отправить сообщение в Telegram")
+
+
+def start() -> int:
+    coins, energy_boost, energy_limit = app.me_info()
+    time_sleep = int(energy_limit / energy_boost)
     message = (f"Status Info\n"
-              f"{fcoin(coins)} COINS\n"
-              f"{energyBoost} EB\n"
-              f"{energyLimit} EL\n"
-              f"{timeSleep} sec. TS")
+               f"{fcoin(coins)} COINS\n"
+               f"{energy_boost} EB\n"
+               f"{energy_limit} EL\n"
+               f"{time_sleep} sec. TS")
     logger.info(message)
     send_telegram_message(message)
 
-    return timeSleep
+    return time_sleep
 
-def fcoin(number):
+
+def fcoin(number: float) -> str:
     if number < 1000:
         return str(number)
-    elif number < 1000000:
+    if number < 1000000:
         return f"{number / 1000:.1f}K"
-    elif number < 1000000000:
+    if number < 1000000000:
         return f"{number / 1000000:.3f}M"
-    else:
+    if number < 1000000000000:
         return f"{number / 1000000000:.3f}B"
+
+    return f"{number / 1000000000000:.3f}T"
 
 
 if __name__ == "__main__":
-    app = ArbuzApp()
     timeSleep = start()
 
     while True:
@@ -83,7 +100,7 @@ if __name__ == "__main__":
                     time.sleep(10)
             else:
                 logger.success(f"+{click} COINS | {energy} ENERGY")
-        except:
-            ...
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {e}")
 
-        time.sleep(.7)
+        time.sleep(0.7)
