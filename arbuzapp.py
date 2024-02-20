@@ -29,7 +29,7 @@ class ArbuzApp:
 
     def click(self) -> tuple[str, int, float]:
         response = requests.post(
-            f'{self.base_url}/click',
+            f'{self.base_url}/click/apply',
             headers=self.headers,
             json={'count': random.randint(25, 35)},
             proxies=self.proxy,
